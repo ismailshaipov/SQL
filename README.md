@@ -1,7 +1,7 @@
 # SQL
 
 # Структура базы данных MySQL.
-![Пример изображения](https://github.com/ismailshaipov/SQL/blob/main/SQL/SQLStrcut.png)
+![SQL Server Management Studio](https://github.com/ismailshaipov/SQL/blob/main/SQL/SQLStrcut.png)
 
 ### Таблица "Должности"
 
