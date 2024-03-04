@@ -1,35 +1,35 @@
---CREATE TRIGGER check_salary 
---ON Posts AFTER INSERT, UPDATE
---AS
---BEGIN
---    IF (SELECT COUNT(*) FROM inserted WHERE P_SAL < 10000) > 0
---    BEGIN
---        PRINT('Значение оклада должно быть не менее 10000.')
---        ROLLBACK TRANSACTION
---    END
---END
+CREATE TRIGGER check_salary 
+ON Posts AFTER INSERT, UPDATE
+AS
+BEGIN
+   IF (SELECT COUNT(*) FROM inserted WHERE P_SAL < 10000) > 0
+   BEGIN
+       PRINT('Р—РЅР°С‡РµРЅРёРµ РѕРєР»Р°РґР° РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РЅРµ РјРµРЅРµРµ 10000.')
+       ROLLBACK TRANSACTION
+   END
+END
 
---CREATE TRIGGER items_check
---ON Items AFTER INSERT
---AS
---BEGIN
---    IF (SELECT B_CIRCUL from Books WHERE B_CONTRACT = (SELECT B_ID FROM inserted)) < (SELECt B_COUNT from inserted)
---    BEGIN
---        PRINT('Количество отпускаемых книг не должно превышать количество тиража.')
---        ROLLBACK TRANSACTION
---    END
---END
+CREATE TRIGGER items_check
+ON Items AFTER INSERT
+AS
+BEGIN
+   IF (SELECT B_CIRCUL from Books WHERE B_CONTRACT = (SELECT B_ID FROM inserted)) < (SELECt B_COUNT from inserted)
+   BEGIN
+       PRINT('РљРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚РїСѓСЃРєР°РµРјС‹С… РєРЅРёРі РЅРµ РґРѕР»Р¶РЅРѕ РїСЂРµРІС‹С€Р°С‚СЊ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РёСЂР°Р¶Р°.')
+       ROLLBACK TRANSACTION
+   END
+END
 
---CREATE TRIGGER cost_check
---ON Customers for delete
---AS
---BEGIN
---    IF (SELECT O_COMPANY from Orders) = (SELECT C_ID FROM deleted)
---    BEGIN
---        PRINT('Запрещено удалять запись из таблицы «Заказчики», если с ней связаны записи из других таблиц.')
---        ROLLBACK TRANSACTION
---    END
---END
+CREATE TRIGGER cost_check
+ON Customers for delete
+AS
+BEGIN
+   IF (SELECT O_COMPANY from Orders) = (SELECT C_ID FROM deleted)
+   BEGIN
+       PRINT('Р—Р°РїСЂРµС‰РµРЅРѕ СѓРґР°Р»СЏС‚СЊ Р·Р°РїРёСЃСЊ РёР· С‚Р°Р±Р»РёС†С‹ В«Р—Р°РєР°Р·С‡РёРєРёВ», РµСЃР»Рё СЃ РЅРµР№ СЃРІСЏР·Р°РЅС‹ Р·Р°РїРёСЃРё РёР· РґСЂСѓРіРёС… С‚Р°Р±Р»РёС†.')
+       ROLLBACK TRANSACTION
+   END
+END
 
 CREATE TRIGGER check_pricebook
 ON Books AFTER INSERT, UPDATE
@@ -37,7 +37,7 @@ AS
 BEGIN
     IF (SELECT COUNT(*) FROM inserted WHERE B_PRICE > 600) > 0
     BEGIN
-        PRINT('Значение цены книги не должно быть больше 600.')
+        PRINT('Р—РЅР°С‡РµРЅРёРµ С†РµРЅС‹ РєРЅРёРіРё РЅРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ Р±РѕР»СЊС€Рµ 600.')
         ROLLBACK TRANSACTION
     END
 END
@@ -46,9 +46,9 @@ CREATE TRIGGER check_addrauthors
 ON Authors AFTER INSERT, UPDATE
 AS
 BEGIN
-    IF (SELECT COUNT(*) FROM inserted WHERE A_ADDR = 'Москва') > 0
+    IF (SELECT COUNT(*) FROM inserted WHERE A_ADDR = 'РњРѕСЃРєРІР°') > 0
     BEGIN
-        PRINT('Автор не должен быть из Моксвы.')
+        PRINT('РђРІС‚РѕСЂ РЅРµ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РёР· РњРѕРєСЃРІС‹.')
         ROLLBACK TRANSACTION
     END
 END
