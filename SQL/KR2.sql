@@ -1,68 +1,67 @@
-SELECT Ïîêóïàòåëü.F_purchaser, Ïîêóïàòåëü.I_purchaser, Ïîêóïàòåëü.O_purchaser, Ïîñòàâùèê.Name_company
-FROM Ïîêóïêè
-JOIN Ïîêóïàòåëü ON Ïîêóïêè.ID_purchaser = Ïîêóïàòåëü.ID_purchaser
-JOIN Ïîñòàâùèê ON Ïîêóïêè.ID_delivery = Ïîñòàâùèê.ID_delivery;
+SELECT Покупатель.F_purchaser, Покупатель.I_purchaser, Покупатель.O_purchaser, Поставщик.Name_company
+FROM Покупки
+JOIN Покупатель ON Покупки.ID_purchaser = Покупатель.ID_purchaser
+JOIN Поставщик ON Покупки.ID_delivery = Поставщик.ID_delivery;
 
-SELECT Ïîêóïêè.*
-FROM Ïîêóïêè
-JOIN Ñîñòàâ_Ïîêóïêè ON Ïîêóïêè.ID_purchase = Ñîñòàâ_Ïîêóïêè.ID_purchase
-JOIN Òîâàð ON Ñîñòàâ_Ïîêóïêè.ID_product = Òîâàð.ID_product
-WHERE Òîâàð.Cost = (
+SELECT Покупки.*
+FROM Покупки
+JOIN Состав_Покупки ON Покупки.ID_purchase = Состав_Покупки.ID_purchase
+JOIN Товар ON Состав_Покупки.ID_product = Товар.ID_product
+WHERE Товар.Cost = (
    SELECT MIN(Cost)
-   FROM Òîâàð
+   FROM Товар
 )
 
-UPDATE Ïîêóïàòåëü
+UPDATE Покупатель
 SET rating = rating * 0.92
 WHERE ID_purchaser NOT IN (
    SELECT ID_purchaser
-   FROM Ïîêóïêè
-   WHERE Type = 'îïòîâàÿ' 
+   FROM Покупки
+   WHERE Type = 'оптовая' 
 );
 
-SELECT Date, AVG(Cost) AS Ñðåäíåå
-FROM Ïîêóïêè
+SELECT Date, AVG(Cost) AS Среднее
+FROM Покупки
 GROUP BY Date;
 
 SELECT F_purchaser, I_purchaser, O_purchaser
-FROM Ïîêóïàòåëü
+FROM Покупатель
 WHERE ID_purchaser IN (
    SELECT ID_purchaser
-   FROM Ïîêóïêè
+   FROM Покупки
    WHERE Cost > 1700
 );
 
 CREATE VIEW PurchasersWithHighRating AS
 SELECT F_purchaser, I_purchaser, O_purchaser
-FROM Ïîêóïàòåëü
-WHERE F_purchaser LIKE 'Â%' AND rating > (
+FROM Покупатель
+WHERE F_purchaser LIKE 'В%' AND rating > (
    SELECT AVG(rating)
-   FROM Ïîêóïàòåëü
+   FROM Покупатель
 );
 
 CREATE PROCEDURE GetPurchasersCountWithRating
 AS
 BEGIN
    DECLARE @rating INT;
-   SET @rating = 123; -- çàäàéòå æåëàåìûé ðåéòèíã çäåñü
+   SET @rating = 123; -- задайте желаемый рейтинг здесь
     
    DECLARE @purchaserCount INT;
     
    SELECT @purchaserCount = COUNT(*)
-   FROM Ïîêóïàòåëü
+   FROM Покупатель
    WHERE rating = @rating;
     
    SELECT @purchaserCount AS PurchasersCount;
 END;
 
 CREATE TRIGGER check_post
-ON dbo.Ïîñòàâùèê AFTER INSERT, UPDATE
+ON dbo.Поставщик AFTER INSERT, UPDATE
 AS
 BEGIN
-   IF (SELECT COUNT(*) FROM inserted WHERE Ïîñòàâùèê.Comis > 0.15) > 0
+   IF (SELECT COUNT(*) FROM inserted WHERE Поставщик.Comis > 0.15) > 0
    BEGIN
-       PRINT('Íå äîëæíî áûòü áîëüøå 0.15 ïðè ìîäèôèêàöèè òàáëèöû "Ïîñòàâùèê')
+       PRINT('Не должно быть больше 0.15 при модификации таблицы "Поставщик')
        ROLLBACK TRANSACTION
    END
 END
-
