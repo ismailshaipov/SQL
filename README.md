@@ -1,7 +1,7 @@
 # SQL
 
 # Структура базы данных MySQL.
-![Пример изображения](https://example.com/image.jpg)
+![Пример изображения](https://github.com/ismailshaipov/SQL/tree/main/SQL)
 
 ### Таблица "Должности"
 
