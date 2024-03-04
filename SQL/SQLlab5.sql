@@ -1,30 +1,30 @@
---UPDATE Posts
---SET P_SAL = P_SAL * 1.05
---WHERE P_POST = 'Программист';
+UPDATE Posts
+SET P_SAL = P_SAL * 1.05
+WHERE P_POST = 'РџСЂРѕРіСЂР°РјРјРёСЃС‚';
+-----------------------------------------------------
+
+INSERT INTO Customers(C_NAME, C_ADDR)
+VALUES ('РЁРµСЃС‚РѕР№', 'Р РѕСЃС‚РѕРІ');
+
+-----------------------------------------------------
+
+INSERT INTO Orders(O_COMPANY, O_DATE)
+SELECT C_ID, '24.03.2023'
+FROM Customers
+WHERE C_ADDR = 'Р РѕСЃС‚РѕРІ';
+
+INSERT INTO Items(O_ID,B_ID , B_COUNT)
+VALUES 
+(10, 1, 50),
+(10, 3, 70);
+
 -------------------------------------------------------
 
---INSERT INTO Customers(C_NAME, C_ADDR)
---VALUES ('Шестой', 'Ростов');
+UPDATE Items
+SET B_COUNT = B_COUNT + 10
+WHERE O_ID = 10 AND B_ID = 1;
 
--------------------------------------------------------
-
---INSERT INTO Orders(O_COMPANY, O_DATE)
---SELECT C_ID, '24.03.2023'
---FROM Customers
---WHERE C_ADDR = 'Ростов';
-
---INSERT INTO Items(O_ID,B_ID , B_COUNT)
---VALUES 
---(10, 1, 50),
---(10, 3, 70);
-
----------------------------------------------------------
-
---UPDATE Items
---SET B_COUNT = B_COUNT + 10
---WHERE O_ID = 10 AND B_ID = 1;
-
-------------------------------------------------------------
+----------------------------------------------------------
 
 DELETE FROM Items
 WHERE O_ID IN (
@@ -33,7 +33,7 @@ WHERE O_ID IN (
   WHERE O_COMPANY = (
     SELECT C_ID
     FROM Customers
-    WHERE C_ADDR = 'Ростов'));
+    WHERE C_ADDR = 'Р РѕСЃС‚РѕРІ'));
 
 DELETE FROM Orders
 WHERE O_ID IN (
@@ -42,13 +42,13 @@ WHERE O_ID IN (
   WHERE O_COMPANY = (
     SELECT C_ID
     FROM Customers
-    WHERE C_ADDR = 'Ростов'));
+    WHERE C_ADDR = 'Р РѕСЃС‚РѕРІ'));
 
 DELETE FROM Customers
 WHERE C_ID = (
   SELECT C_ID
   FROM Customers
-  WHERE C_ADDR = 'Ростов'
+  WHERE C_ADDR = 'Р РѕСЃС‚РѕРІ'
 );
 ------------------------------------------------------------
 UPDATE Orders
