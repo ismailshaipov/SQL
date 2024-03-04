@@ -4,7 +4,7 @@ WHERE E_ID IN (SELECT B_EDIT FROM Books);
 ---------------------------------------------------
 SELECT E_ROOM
 FROM Employees
-WHERE E_POST IN (SELECT P_ID FROM Posts WHERE P_POST = '¬ÂÒÚ‡Î¸˘ËÍ');
+WHERE E_POST IN (SELECT P_ID FROM Posts WHERE P_POST = '–í–µ—Ä—Å—Ç–∞–ª—å—â–∏–∫');
 ---------------------------------------------------
 SELECT A_FNAME, A_LNAME
 FROM Authors
@@ -20,7 +20,7 @@ WHERE B_CONTRACT IN (SELECT B_ID FROM [dbo].[Items])
 ---------------------------------------------------
 SELECT COUNT(E_ID) 
 FROM Employees
-WHERE E_Pdate > '01.01.2000' And E_SEX = 'Ã';
+WHERE E_Pdate > '01.01.2000' And E_SEX = '–ú';
 ----------------------------------------------------
 SELECT B_TITLE, (B_CIRCUL * B_PRICE)
 FROM Books;
@@ -32,7 +32,7 @@ WHERE O_ID IN (SELECT O_ID FROM Orders WHERE MONTH(O_DATE) = 9 AND YEAR(O_DATE) 
 ---------------------------------------------------
 SELECT SUM(B_CIRCUL)
 FROM Books
-WHERE B_CONTRACT IN (SELECT A_ID FROM Authors WHERE A_ADDR = ' ‡Á‡Ì¸');
+WHERE B_CONTRACT IN (SELECT A_ID FROM Authors WHERE A_ADDR = '–ö–∞–∑–∞–Ω—å');
 ---------------------------------------------------
 SELECT Authors.A_FNAME, Authors2.A_FNAME, Authors.A_ADDR
 FROM Authors LEFT JOIN Authors AS Authors2
@@ -41,4 +41,4 @@ WHERE Authors.A_ID<Authors2.A_ID
 -----------------------------------------------------
 SELECT B_TITLE
 FROM Books
-WHERE B_CONTRACT IN (SELECT B_ID FROM Titles WHERE A_ID = (SELECT A_ID FROM Authors WHERE A_FNAME = '¿Ì‰ÂÂ‚'));
+WHERE B_CONTRACT IN (SELECT B_ID FROM Titles WHERE A_ID = (SELECT A_ID FROM Authors WHERE A_FNAME = '–ê–Ω–¥—Ä–µ–µ–≤'));
