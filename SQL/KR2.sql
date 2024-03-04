@@ -1,68 +1,68 @@
---SELECT Покупатель.F_purchaser, Покупатель.I_purchaser, Покупатель.O_purchaser, Поставщик.Name_company
---FROM Покупки
---JOIN Покупатель ON Покупки.ID_purchaser = Покупатель.ID_purchaser
---JOIN Поставщик ON Покупки.ID_delivery = Поставщик.ID_delivery;
+SELECT ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј.F_purchaser, ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј.I_purchaser, ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј.O_purchaser, ГЏГ®Г±ГІГ ГўГ№ГЁГЄ.Name_company
+FROM ГЏГ®ГЄГіГЇГЄГЁ
+JOIN ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј ON ГЏГ®ГЄГіГЇГЄГЁ.ID_purchaser = ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј.ID_purchaser
+JOIN ГЏГ®Г±ГІГ ГўГ№ГЁГЄ ON ГЏГ®ГЄГіГЇГЄГЁ.ID_delivery = ГЏГ®Г±ГІГ ГўГ№ГЁГЄ.ID_delivery;
 
---SELECT Покупки.*
---FROM Покупки
---JOIN Состав_Покупки ON Покупки.ID_purchase = Состав_Покупки.ID_purchase
---JOIN Товар ON Состав_Покупки.ID_product = Товар.ID_product
---WHERE Товар.Cost = (
---    SELECT MIN(Cost)
---    FROM Товар
---)
+SELECT ГЏГ®ГЄГіГЇГЄГЁ.*
+FROM ГЏГ®ГЄГіГЇГЄГЁ
+JOIN Г‘Г®Г±ГІГ Гў_ГЏГ®ГЄГіГЇГЄГЁ ON ГЏГ®ГЄГіГЇГЄГЁ.ID_purchase = Г‘Г®Г±ГІГ Гў_ГЏГ®ГЄГіГЇГЄГЁ.ID_purchase
+JOIN Г’Г®ГўГ Г° ON Г‘Г®Г±ГІГ Гў_ГЏГ®ГЄГіГЇГЄГЁ.ID_product = Г’Г®ГўГ Г°.ID_product
+WHERE Г’Г®ГўГ Г°.Cost = (
+   SELECT MIN(Cost)
+   FROM Г’Г®ГўГ Г°
+)
 
---UPDATE Покупатель
---SET rating = rating * 0.92
---WHERE ID_purchaser NOT IN (
---    SELECT ID_purchaser
---    FROM Покупки
---    WHERE Type = 'оптовая' 
---);
+UPDATE ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј
+SET rating = rating * 0.92
+WHERE ID_purchaser NOT IN (
+   SELECT ID_purchaser
+   FROM ГЏГ®ГЄГіГЇГЄГЁ
+   WHERE Type = 'Г®ГЇГІГ®ГўГ Гї' 
+);
 
---SELECT Date, AVG(Cost) AS Среднее
---FROM Покупки
---GROUP BY Date;
+SELECT Date, AVG(Cost) AS Г‘Г°ГҐГ¤Г­ГҐГҐ
+FROM ГЏГ®ГЄГіГЇГЄГЁ
+GROUP BY Date;
 
---SELECT F_purchaser, I_purchaser, O_purchaser
---FROM Покупатель
---WHERE ID_purchaser IN (
---    SELECT ID_purchaser
---    FROM Покупки
---    WHERE Cost > 1700
---);
+SELECT F_purchaser, I_purchaser, O_purchaser
+FROM ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј
+WHERE ID_purchaser IN (
+   SELECT ID_purchaser
+   FROM ГЏГ®ГЄГіГЇГЄГЁ
+   WHERE Cost > 1700
+);
 
---CREATE VIEW PurchasersWithHighRating AS
---SELECT F_purchaser, I_purchaser, O_purchaser
---FROM Покупатель
---WHERE F_purchaser LIKE 'В%' AND rating > (
---    SELECT AVG(rating)
---    FROM Покупатель
---);
+CREATE VIEW PurchasersWithHighRating AS
+SELECT F_purchaser, I_purchaser, O_purchaser
+FROM ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј
+WHERE F_purchaser LIKE 'Г‚%' AND rating > (
+   SELECT AVG(rating)
+   FROM ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј
+);
 
---CREATE PROCEDURE GetPurchasersCountWithRating
---AS
---BEGIN
---    DECLARE @rating INT;
---    SET @rating = 123; -- задайте желаемый рейтинг здесь
+CREATE PROCEDURE GetPurchasersCountWithRating
+AS
+BEGIN
+   DECLARE @rating INT;
+   SET @rating = 123; -- Г§Г Г¤Г Г©ГІГҐ Г¦ГҐГ«Г ГҐГ¬Г»Г© Г°ГҐГ©ГІГЁГ­ГЈ Г§Г¤ГҐГ±Гј
     
---    DECLARE @purchaserCount INT;
+   DECLARE @purchaserCount INT;
     
---    SELECT @purchaserCount = COUNT(*)
---    FROM Покупатель
---    WHERE rating = @rating;
+   SELECT @purchaserCount = COUNT(*)
+   FROM ГЏГ®ГЄГіГЇГ ГІГҐГ«Гј
+   WHERE rating = @rating;
     
---    SELECT @purchaserCount AS PurchasersCount;
---END;
+   SELECT @purchaserCount AS PurchasersCount;
+END;
 
---CREATE TRIGGER check_post
---ON dbo.Поставщик AFTER INSERT, UPDATE
---AS
---BEGIN
---    IF (SELECT COUNT(*) FROM inserted WHERE Поставщик.Comis > 0.15) > 0
---    BEGIN
---        PRINT('Не должно быть больше 0.15 при модификации таблицы "Поставщик')
---        ROLLBACK TRANSACTION
---    END
---END
+CREATE TRIGGER check_post
+ON dbo.ГЏГ®Г±ГІГ ГўГ№ГЁГЄ AFTER INSERT, UPDATE
+AS
+BEGIN
+   IF (SELECT COUNT(*) FROM inserted WHERE ГЏГ®Г±ГІГ ГўГ№ГЁГЄ.Comis > 0.15) > 0
+   BEGIN
+       PRINT('ГЌГҐ Г¤Г®Г«Г¦Г­Г® ГЎГ»ГІГј ГЎГ®Г«ГјГёГҐ 0.15 ГЇГ°ГЁ Г¬Г®Г¤ГЁГґГЁГЄГ Г¶ГЁГЁ ГІГ ГЎГ«ГЁГ¶Г» "ГЏГ®Г±ГІГ ГўГ№ГЁГЄ')
+       ROLLBACK TRANSACTION
+   END
+END
 
