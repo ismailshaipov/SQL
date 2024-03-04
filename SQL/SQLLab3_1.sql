@@ -10,7 +10,7 @@ FROM Employees;
 
 SELECT E_FNAME,E_LNAME
 FROM Employees
-WHERE E_SEX LIKE 'М';
+WHERE E_SEX LIKE 'Рњ';
 
 SELECT E_FNAME,E_LNAME
 FROM Employees
@@ -18,13 +18,13 @@ WHERE E_BORN BETWEEN '1988-05-01' AND '2010-05-31'
 
 SELECT E_FNAME,E_LNAME
 FROM Employees
-WHERE E_ADDR NOT LIKE '%Москва%' AND E_ROOM LIKE '3';
+WHERE E_ADDR NOT LIKE '%РњРѕСЃРєРІР°%' AND E_ROOM LIKE '3';
 
---8 пропустил
+--8 РїСЂРѕРїСѓСЃС‚РёР»
 
 SELECT A_FNAME,A_LNAME
 FROM Authors
-WHERE A_LNAME BETWEEN 'А%' AND 'И%';
+WHERE A_LNAME BETWEEN 'Рђ%' AND 'Р%';
 
 
 --8 done
@@ -39,8 +39,8 @@ GROUP BY O_ID;
 
 SELECT B_CIRCUL
 FROM Books
-WHERE B_TITLE LIKE '%Вторая%';
+WHERE B_TITLE LIKE '%Р’С‚РѕСЂР°СЏ%';
 
 SELECT A_FNAME
 FROM Authors
-WHERE A_ADDR = 'Казань'
+WHERE A_ADDR = 'РљР°Р·Р°РЅСЊ'
