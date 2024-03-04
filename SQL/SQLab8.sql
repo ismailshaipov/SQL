@@ -36,9 +36,9 @@ WHERE C_ADDR = @c_addr
 GROUP BY B_TITLE
 
 
---CREATE PROCEDURE AuthorsBooks(@a_fname NVARCHAR(20))
---AS
---SELECT B_TITLE FROM Books
---JOIN Titles ON Books.B_CONTRACT = Titles.B_ID
---JOIN Authors ON Titles.A_ID = Authors.A_ID
---WHERE A_FNAME = @a_fname 
+CREATE PROCEDURE AuthorsBooks(@a_fname NVARCHAR(20))
+AS
+SELECT B_TITLE FROM Books
+JOIN Titles ON Books.B_CONTRACT = Titles.B_ID
+JOIN Authors ON Titles.A_ID = Authors.A_ID
+WHERE A_FNAME = @a_fname 
